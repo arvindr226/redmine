@@ -1,0 +1,26 @@
+version: '2'
+
+services:
+
+  redmine:
+    image: redmine
+#    ports:
+#      - 3000:3000
+    environment:
+      REDMINE_DB_MYSQL: db
+      REDMINE_DB_PASSWORD: example
+    depends_on:
+      - db
+    restart: always
+
+  db:
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: redmine
+    restart: always
+  web:
+    image: redmine-nginx
+    ports:
+      - 80:80
+    restart: always
